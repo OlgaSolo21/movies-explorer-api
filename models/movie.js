@@ -67,4 +67,4 @@ const movieSchema = new mongoose.Schema ({
 }, { versionKey: false, timestamps: true });
 
 // создаём модель и экспортируем её
-module.exports = mongoose.model('user', movieSchema);
+module.exports = mongoose.model('movie', movieSchema);
