@@ -1,28 +1,28 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const movieSchema = new mongoose.Schema ({
-  country: { //страна создания фильма
+const movieSchema = new mongoose.Schema({
+  country: { // страна создания фильма
     type: String,
-    required: true
+    required: true,
   },
-  director: { //режиссёр фильма
+  director: { // режиссёр фильма
     type: String,
-    required: true
+    required: true,
   },
-  duration: { //длительность фильма
+  duration: { // длительность фильма
     type: Number,
-    required: true
+    required: true,
   },
-  year: { //год выпуска фильма
+  year: { // год выпуска фильма
     type: String,
-    required: true
+    required: true,
   },
-  description: { //описание фильма
+  description: { // описание фильма
     type: String,
-    required: true
+    required: true,
   },
-  image: { //ссылка на постер к фильму
+  image: { // ссылка на постер к фильму
     type: String,
     required: true,
     validate: {
@@ -30,7 +30,7 @@ const movieSchema = new mongoose.Schema ({
       message: 'Некорректный URL',
     },
   },
-  trailerLink: { //ссылка на трейлер фильма
+  trailerLink: { // ссылка на трейлер фильма
     type: String,
     required: true,
     validate: {
@@ -38,7 +38,7 @@ const movieSchema = new mongoose.Schema ({
       message: 'Некорректный URL',
     },
   },
-  thumbnail: { //миниатюрное изображение постера к фильму
+  thumbnail: { // миниатюрное изображение постера к фильму
     type: String,
     required: true,
     validate: {
@@ -55,13 +55,13 @@ const movieSchema = new mongoose.Schema ({
     type: Number,
     required: true,
   },
-  nameRU: { //название фильма на русском языке
+  nameRU: { // название фильма на русском языке
     type: String,
-    required: true
+    required: true,
   },
-  nameEN: { //название фильма на английском языке
+  nameEN: { // название фильма на английском языке
     type: String,
-    required: true
+    required: true,
   },
 }, { versionKey: false, timestamps: true });
 

@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const cors = require('cors');
 const { PORT, MONGO_URL } = require('./utils/config');
-const router = require("./routes/routs");
-const {requestLogger, errorLogger} = require("./middlewares/logger");
-const {handleCenterError} = require("./middlewares/handleCenterError");
+const router = require('./routes/index');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { handleCenterError } = require('./middlewares/handleCenterError');
 
 const app = express();
 app.use(cors());
@@ -29,9 +29,6 @@ app.use(errors());
 // централизованная обработка ошибок
 app.use(handleCenterError);
 
-app.listen(PORT, () => {
-  // Если всё работает, консоль покажет, какой порт приложение слушает
-  console.log(`App listening on port ${PORT}`);
-});
+app.listen(PORT);
 
 // npm run lint -- --fix - чтобы фиксить ошибки с линтером

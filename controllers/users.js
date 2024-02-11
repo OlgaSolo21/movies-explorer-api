@@ -3,15 +3,14 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken'); // импортируем jwt token модуль
 const User = require('../models/user');
-const BadRequest = require("../errors/400_BadRequest");
-const ConflictError = require("../errors/409_ConflictError");
-const NotFoundError = require("../errors/404_NotFoundError");
+const BadRequest = require('../errors/400_BadRequest');
+const ConflictError = require('../errors/409_ConflictError');
+const NotFoundError = require('../errors/404_NotFoundError');
 const { NODE_ENV, JWT_SECRET } = require('../utils/config');
-
 
 // POST /signup — создаёт пользователя с переданными в теле email, password и name
 module.exports.signupUser = (req, res, next) => { // создаем пользователя User.create
-  const {name, password, email} = req.body;
+  const { name, password, email } = req.body;
   // хешируем пароль
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
@@ -76,4 +75,3 @@ module.exports.updateUserProfile = (req, res, next) => { // обновляем �
       } else { next(err); }
     });
 };
-
