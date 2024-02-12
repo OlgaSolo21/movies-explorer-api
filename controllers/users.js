@@ -7,6 +7,13 @@ const BadRequest = require('../errors/400_BadRequest');
 const ConflictError = require('../errors/409_ConflictError');
 const NotFoundError = require('../errors/404_NotFoundError');
 const { NODE_ENV, JWT_SECRET } = require('../utils/config');
+const {
+  ERROR_CODENUMBER,
+  MESSAGE_CONFLICTERROR,
+  MESSAGE_BADREQUESTERROR,
+  STATUS_OK,
+  MESSAGE_NOTFOUNDERROR,
+} = require('../utils/constans');
 
 // POST /signup — создаёт пользователя с переданными в теле email, password и name
 module.exports.signupUser = (req, res, next) => { // создаем пользователя User.create
@@ -18,16 +25,16 @@ module.exports.signupUser = (req, res, next) => { // создаем пользо
       email,
       password: hash, // записываем хеш в базу
     }))
-    .then((user) => res.status(201).send({ // В ответе убираем password
+    .then((user) => res.status(STATUS_OK).send({ // В ответе убираем password
       name: user.name,
       _id: user._id,
       email: user.email,
     }))
     .catch((err) => {
-      if (err.code === 11000) {
-        next(new ConflictError(`Пользователь с email: ${email} уже существует`));
+      if (err.code === ERROR_CODENUMBER) {
+        next(new ConflictError(MESSAGE_CONFLICTERROR));
       } else if (err instanceof mongoose.Error.ValidationError) {
-        next(new BadRequest(err.message));
+        next(new BadRequest(MESSAGE_BADREQUESTERROR));
       } else {
         next(err);
       }
@@ -52,7 +59,7 @@ module.exports.signinUser = (req, res, next) => {
 // GET /users/me - возвращает информацию о текущем пользователе
 module.exports.getUserMe = (req, res, next) => {
   User.findById(req.user._id)
-    .then((user) => res.status(200).send(user))
+    .then((user) => res.status(STATUS_OK).send(user))
     .catch(next);
 };
 
@@ -62,16 +69,16 @@ module.exports.updateUserProfile = (req, res, next) => { // обновляем �
   User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
-        next(new NotFoundError('Запрашиваемый пользователь по _id не найден'));
+        next(new NotFoundError(MESSAGE_NOTFOUNDERROR));
         return;
       }
-      res.status(200).send(user);
+      res.status(STATUS_OK).send(user);
     })
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
-        next(new BadRequest('Данные введены некорректно'));
-      } else if (err.code === 11000) {
-        next(new ConflictError(`Пользователь с email: ${email} уже существует`));
+        next(new BadRequest(MESSAGE_BADREQUESTERROR));
+      } else if (err.code === ERROR_CODENUMBER) {
+        next(new ConflictError(MESSAGE_CONFLICTERROR));
       } else { next(err); }
     });
 };

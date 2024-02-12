@@ -5,6 +5,7 @@ const auth = require('../middlewares/auth');
 const routerMovie = require('./movieRoute');
 const NotFoundError = require('../errors/404_NotFoundError');
 const { signInUpValid } = require('../utils/validation');
+const { MESSAGE_NOTFOUNDERROR } = require('../utils/constans');
 
 // POST /signup/signin
 router.post('/signup', signInUpValid, signupUser);
@@ -18,7 +19,7 @@ router.use('/users', routerUser);
 router.use('/movies', routerMovie);
 
 router.use((req, res, next) => {
-  next(new NotFoundError('Страница не найдена'));
+  next(new NotFoundError(MESSAGE_NOTFOUNDERROR));
 });
 
 module.exports = router;
