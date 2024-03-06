@@ -2,9 +2,17 @@ const { celebrate, Joi } = require('celebrate');
 
 const urlRegex = /^(https?:\/\/(www\.)?([a-zA-z0-9-]){1,}\.?([a-zA-z0-9]){2,8}(\/?([a-zA-z0-9-])*\/?)*\/?([-._~:/?#[]@!\$&'\(\)\*\+,;=])*)/;
 
-module.exports.signInUpValid = celebrate({ // ркгистрация и логин
+module.exports.signUpValid = celebrate({ // ркгистрация
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
+    email: Joi.string().required().email(),
+    password: Joi.string().required(),
+  }),
+});
+
+module.exports.signInValid = celebrate({ //  логин
+  body: Joi.object().keys({
+    // name: Joi.string().required().min(2).max(30),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),

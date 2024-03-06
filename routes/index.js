@@ -4,12 +4,12 @@ const { signupUser, signinUser } = require('../controllers/users');
 const auth = require('../middlewares/auth');
 const routerMovie = require('./movieRoute');
 const NotFoundError = require('../errors/404_NotFoundError');
-const { signInUpValid } = require('../utils/validation');
+const { signUpValid, signInValid} = require('../utils/validation');
 const { MESSAGE_NOTFOUNDERROR } = require('../utils/constans');
 
 // POST /signup/signin
-router.post('/signup', signInUpValid, signupUser);
-router.post('/signin', signInUpValid, signinUser);
+router.post('/signup', signUpValid, signupUser);
+router.post('/signin', signInValid, signinUser);
 
 // Защитите API авторизацией(все что ниже - роуты, которым авторизация нужна)
 router.use(auth);
