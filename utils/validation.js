@@ -6,22 +6,22 @@ const NAME_REGEX = /^[а-яА-ЯёЁa-zA-Z\\s-]+$/
 module.exports.signUpValid = celebrate({ // ркгистрация
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30).pattern(NAME_REGEX),
-    email: Joi.string().required().email().pattern(EMAIL_REGEX),
+    email: Joi.string().required().pattern(EMAIL_REGEX),
     password: Joi.string().required(),
   }),
 });
 
 module.exports.signInValid = celebrate({ //  логин
   body: Joi.object().keys({
-    email: Joi.string().required().email(),
+    email: Joi.string().required().pattern(EMAIL_REGEX),
     password: Joi.string().required(),
   }),
 });
 
 module.exports.patchUpdateUserValidate = celebrate({ // изменение данных профиля имя и email
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30),
-    email: Joi.string().required().email(),
+    name: Joi.string().required().min(2).max(30).pattern(NAME_REGEX),
+    email: Joi.string().required().pattern(EMAIL_REGEX),
   }),
 });
 
