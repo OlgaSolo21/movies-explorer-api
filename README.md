@@ -3,8 +3,8 @@
 
 ## Ссылки на проект
 
-IP 158.160.39.248
+IP 158.160.39.248 (ПРИОСТАНОВЛЕН)
 
-Frontend https://movies-diploma77.nomoredomainswork.ru
+Frontend https://movies-diploma77.nomoredomainswork.ru (ПРИОСТАНОВЛЕН)
 
-Backend https://api.movies-diploma77.nomoredomainswork.ru
+Backend https://api.movies-diploma77.nomoredomainswork.ru (ПРИОСТАНОВЛЕН)
